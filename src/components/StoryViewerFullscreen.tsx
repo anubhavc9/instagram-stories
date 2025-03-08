@@ -87,6 +87,7 @@ const StoryViewerFullscreen: React.FC<StoryViewerFullscreenProps> = ({
         <div
           key={index}
           className={index === currentStoryIndex ? "active-story" : ""}
+          id={`story-item-${index}`}
         >
           {story?.id === currentStoryIndex && (
             <img

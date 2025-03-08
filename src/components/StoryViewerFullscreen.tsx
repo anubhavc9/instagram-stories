@@ -8,7 +8,6 @@ interface StoryViewerFullscreenProps {
   goToNextStory: () => void;
   goToPreviousStory: () => void;
   toggleFullscreen: () => void;
-  fade: boolean;
 }
 
 const StoryViewerFullscreen: React.FC<StoryViewerFullscreenProps> = ({

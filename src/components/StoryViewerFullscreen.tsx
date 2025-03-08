@@ -1,10 +1,5 @@
 import { useEffect, useState } from "react";
-
-interface Story {
-  id: number;
-  img: string;
-  name: string;
-}
+import { Story } from "../interfaces/story";
 
 interface StoryViewerFullscreenProps {
   stories: Story[];

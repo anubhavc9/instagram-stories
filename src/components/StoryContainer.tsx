@@ -1,10 +1,5 @@
 import "../App.css";
-
-interface Story {
-  id: number;
-  img: string;
-  name: string;
-}
+import { Story } from "../interfaces/story";
 
 interface StoryContainerProps {
   stories: Story[];

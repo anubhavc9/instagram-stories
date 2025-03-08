@@ -2,12 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import StoryContainer from "./components/StoryContainer";
 import StoryViewerFullscreen from "./components/StoryViewerFullscreen";
-
-interface Story {
-  id: number;
-  title: string;
-  content: string;
-}
+import { Story } from "./interfaces/story";
 
 const StoryViewer: React.FC = () => {
   const [stories, setStories] = useState<Story[]>([]);

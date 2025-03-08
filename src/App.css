@@ -1,42 +1,73 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.skeleton-container {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 10px;
+  white-space: nowrap;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.skeleton-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.skeleton-circle {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  animation: pulse 1.5s infinite ease-in-out;
+  border: 3px solid white;
+  padding: 2px;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
   }
-  to {
-    transform: rotate(360deg);
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.story-container {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 10px;
+  white-space: nowrap;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-.card {
-  padding: 2em;
+.story-container::-webkit-scrollbar {
+  display: none;
 }
 
-.read-the-docs {
-  color: #888;
+.story-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.story-image {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 3px solid #d6249f;
+  padding: 2px;
+}
+
+.story-name {
+  margin-top: 5px;
+  font-size: 12px;
+  color: #333;
 }

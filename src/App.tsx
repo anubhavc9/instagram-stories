@@ -1,35 +1,81 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import React, { useState, useEffect } from "react";
 import "./App.css";
+import StoryContainer from "./components/StoryContainer";
+import StoryViewerFullscreen from "./components/StoryViewerFullscreen";
 
-function App() {
-  const [count, setCount] = useState(0);
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  );
+interface Story {
+  id: number;
+  title: string;
+  content: string;
 }
 
-export default App;
+const StoryViewer: React.FC = () => {
+  const [stories, setStories] = useState<Story[]>([]);
+  const [currentStoryIndex, setCurrentStoryIndex] = useState<number>(0);
+  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
+  const [fade, setFade] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      fetch("/data/stories.json")
+        .then((res) => {
+          if (!res.ok) throw new Error("Network response was not ok");
+          return res.json();
+        })
+        .then((data: Story[]) => {
+          setStories(data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error?.message);
+          setLoading(false);
+        });
+    }, 2000); // Mock 2-second delay
+  }, []);
+
+  const goToNextStory = () => {
+    setCurrentStoryIndex((prevIndex) => (prevIndex + 1) % stories.length);
+  };
+
+  const goToPreviousStory = () => {
+    setCurrentStoryIndex((prevIndex) =>
+      prevIndex === 0 ? stories.length - 1 : prevIndex - 1
+    );
+  };
+
+  const toggleFullscreen = () => setIsFullscreen(!isFullscreen);
+
+  return (
+    <div>
+      {loading ? (
+        <div className="skeleton-container">
+          {[...Array(10)].map((_, index) => (
+            <div key={index} className="skeleton-item">
+              <div className="skeleton-circle"></div>
+            </div>
+          ))}
+        </div>
+      ) : isFullscreen ? (
+        <StoryViewerFullscreen
+          stories={stories}
+          currentStoryIndex={currentStoryIndex}
+          goToNextStory={goToNextStory}
+          goToPreviousStory={goToPreviousStory}
+          toggleFullscreen={toggleFullscreen}
+          fade={fade}
+        />
+      ) : (
+        <StoryContainer
+          stories={stories}
+          setCurrentStoryIndex={setCurrentStoryIndex}
+          setIsFullscreen={setIsFullscreen}
+          toggleFullscreen={toggleFullscreen}
+        />
+      )}
+    </div>
+  );
+};
+
+export default StoryViewer;

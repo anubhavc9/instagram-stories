@@ -1,35 +1,71 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import React, { useState, useEffect } from "react";
 import "./App.css";
+import StoriesPreviewContainer from "./components/StoriesPreviewContainer";
+import StoryFullscreen from "./components/StoryFullscreen";
+import { Story } from "./interfaces/story";
+import StoriesPreviewLoader from "./components/StoriesPreviewLoader";
+import Error from "./components/Error";
 
-function App() {
-  const [count, setCount] = useState(0);
+const App: React.FC = () => {
+  const [stories, setStories] = useState<Story[]>([]);
+  const [currentStoryIndex, setCurrentStoryIndex] = useState<number>(0);
+  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
+  const [loading, setLoading] = useState<string>("not-started");
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setLoading("started");
+    setTimeout(() => {
+      fetch("/data/stories.json")
+        .then((res) => res.json())
+        .then((data: Story[]) => {
+          setStories(data);
+          setLoading("done");
+        })
+        .catch((error) => {
+          setError(error?.message);
+          setLoading("done");
+        });
+    }, 2000); // Mock 2-second delay
+  }, []);
+
+  const goToNextStory = () => {
+    setCurrentStoryIndex((prevIndex) => (prevIndex + 1) % stories.length);
+  };
+
+  const goToPreviousStory = () => {
+    setCurrentStoryIndex((prevIndex) =>
+      prevIndex === 0 ? stories.length - 1 : prevIndex - 1
+    );
+  };
+
+  const toggleFullscreen = () => setIsFullscreen(!isFullscreen);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+      {loading === "done" ? (
+        error ? (
+          <Error />
+        ) : isFullscreen ? (
+          <StoryFullscreen
+            stories={stories}
+            currentStoryIndex={currentStoryIndex}
+            goToNextStory={goToNextStory}
+            goToPreviousStory={goToPreviousStory}
+            toggleFullscreen={toggleFullscreen}
+          />
+        ) : (
+          <StoriesPreviewContainer
+            stories={stories}
+            setCurrentStoryIndex={setCurrentStoryIndex}
+            toggleFullscreen={toggleFullscreen}
+          />
+        )
+      ) : (
+        <StoriesPreviewLoader />
+      )}
+    </div>
   );
-}
+};
 
 export default App;

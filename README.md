@@ -17,7 +17,7 @@
   `npm run dev`
 
 - Development server starts at:
-  `[https://localhost:5173](http://localhost:5173/)`
+  [https://localhost:5173](http://localhost:5173/)
 
 - To run the E2E test:
   `npm run test:e2e`

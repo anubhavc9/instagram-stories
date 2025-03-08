@@ -4,27 +4,26 @@ import StoriesPreviewContainer from "./components/StoriesPreviewContainer";
 import StoryFullscreen from "./components/StoryFullscreen";
 import { Story } from "./interfaces/story";
 import StoriesPreviewLoader from "./components/StoriesPreviewLoader";
+import Error from "./components/Error";
 
 const StoryViewer: React.FC = () => {
   const [stories, setStories] = useState<Story[]>([]);
   const [currentStoryIndex, setCurrentStoryIndex] = useState<number>(0);
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
   const [loading, setLoading] = useState<string>("not-started");
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     setLoading("started");
     setTimeout(() => {
       fetch("/data/stories.json")
-        .then((res) => {
-          if (!res.ok) throw new Error("Network response was not ok");
-          return res.json();
-        })
+        .then((res) => res.json())
         .then((data: Story[]) => {
           setStories(data);
           setLoading("done");
         })
         .catch((error) => {
-          console.error("Error fetching data:", error?.message);
+          setError(error?.message);
           setLoading("done");
         });
     }, 2000); // Mock 2-second delay
@@ -45,7 +44,9 @@ const StoryViewer: React.FC = () => {
   return (
     <div>
       {loading === "done" ? (
-        isFullscreen ? (
+        error ? (
+          <Error />
+        ) : isFullscreen ? (
           <StoryFullscreen
             stories={stories}
             currentStoryIndex={currentStoryIndex}

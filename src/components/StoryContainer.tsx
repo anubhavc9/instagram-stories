@@ -4,6 +4,7 @@ import { Story } from "../interfaces/story";
 interface StoryContainerProps {
   stories: Story[];
   setCurrentStoryIndex: (index: number) => void;
+  setIsFullscreen: (fullscreen: boolean) => void;
   toggleFullscreen: () => void;
 }
 

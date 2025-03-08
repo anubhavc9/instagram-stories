@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Story } from "../interfaces/story";
+import "../App.css";
 
 interface StoryViewerFullscreenProps {
   stories: Story[];
@@ -53,24 +54,9 @@ const StoryViewerFullscreen: React.FC<StoryViewerFullscreenProps> = ({
   };
 
   return (
-    <div
-      style={{ width: "100vw", height: "100vh" }}
-      onClick={handleScreenClick}
-    >
+    <div onClick={handleScreenClick} className="fullscreen-container">
       {/* Progress Bars */}
-      <div
-        style={{
-          display: "flex",
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "5px",
-          gap: "4px",
-          padding: "10px 10px 0 10px",
-          boxSizing: "border-box",
-        }}
-      >
+      <div className="story-progress-bar">
         {stories.map((_, index) => (
           <div
             key={index}
@@ -92,15 +78,8 @@ const StoryViewerFullscreen: React.FC<StoryViewerFullscreenProps> = ({
       {/* Close Button */}
       <div>
         <img
-          src="/cross.svg"
-          style={{
-            cursor: "pointer",
-            width: "30px",
-            height: "30px",
-            position: "absolute",
-            top: "25px",
-            right: "10px",
-          }}
+          src="/assets/cross.svg"
+          className="close-button"
           onClick={toggleFullscreen}
         />
       </div>

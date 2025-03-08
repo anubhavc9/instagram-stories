@@ -17,7 +17,6 @@ const StoryViewerFullscreen: React.FC<StoryViewerFullscreenProps> = ({
   goToNextStory,
   goToPreviousStory,
   toggleFullscreen,
-  fade,
 }) => {
   const [progress, setProgress] = useState<number>(0);
 
@@ -95,7 +94,6 @@ const StoryViewerFullscreen: React.FC<StoryViewerFullscreenProps> = ({
                 width: "100vw",
                 height: "100vh",
                 objectFit: "cover",
-                opacity: fade ? 1 : 0.3,
               }}
             />
           )}

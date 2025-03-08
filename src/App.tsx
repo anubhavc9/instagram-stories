@@ -8,7 +8,6 @@ const StoryViewer: React.FC = () => {
   const [stories, setStories] = useState<Story[]>([]);
   const [currentStoryIndex, setCurrentStoryIndex] = useState<number>(0);
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
-  const [fade, setFade] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -59,7 +58,6 @@ const StoryViewer: React.FC = () => {
           goToNextStory={goToNextStory}
           goToPreviousStory={goToPreviousStory}
           toggleFullscreen={toggleFullscreen}
-          fade={fade}
         />
       ) : (
         <StoryContainer

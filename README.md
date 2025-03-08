@@ -1,5 +1,7 @@
 # Instagram Stories
 
+- Open terminal
+  
 - Clone the repo
   `git clone https://github.com/anubhavc9/instagram-stories.git`
 

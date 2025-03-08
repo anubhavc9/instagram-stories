@@ -1,14 +1,7 @@
 import "../App.css";
-import { Story } from "../interfaces/story";
+import { StoriesPreviewContainerProps, Story } from "../interfaces/story";
 
-interface StoryContainerProps {
-  stories: Story[];
-  setCurrentStoryIndex: (index: number) => void;
-  setIsFullscreen: (fullscreen: boolean) => void;
-  toggleFullscreen: () => void;
-}
-
-const StoryContainer: React.FC<StoryContainerProps> = ({
+const StoriesPreviewContainer: React.FC<StoriesPreviewContainerProps> = ({
   stories,
   setCurrentStoryIndex,
   toggleFullscreen,
@@ -34,4 +27,4 @@ const StoryContainer: React.FC<StoryContainerProps> = ({
   );
 };
 
-export default StoryContainer;
+export default StoriesPreviewContainer;

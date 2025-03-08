@@ -1,16 +1,8 @@
 import { useEffect, useState } from "react";
-import { Story } from "../interfaces/story";
+import { StoryFullscreenProps } from "../interfaces/story";
 import "../App.css";
 
-interface StoryViewerFullscreenProps {
-  stories: Story[];
-  currentStoryIndex: number;
-  goToNextStory: () => void;
-  goToPreviousStory: () => void;
-  toggleFullscreen: () => void;
-}
-
-const StoryViewerFullscreen: React.FC<StoryViewerFullscreenProps> = ({
+const StoryFullscreen: React.FC<StoryFullscreenProps> = ({
   stories,
   currentStoryIndex,
   goToNextStory,
@@ -106,4 +98,4 @@ const StoryViewerFullscreen: React.FC<StoryViewerFullscreenProps> = ({
   );
 };
 
-export default StoryViewerFullscreen;
+export default StoryFullscreen;

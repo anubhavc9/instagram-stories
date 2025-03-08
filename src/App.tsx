@@ -6,7 +6,7 @@ import { Story } from "./interfaces/story";
 import StoriesPreviewLoader from "./components/StoriesPreviewLoader";
 import Error from "./components/Error";
 
-const StoryViewer: React.FC = () => {
+const App: React.FC = () => {
   const [stories, setStories] = useState<Story[]>([]);
   const [currentStoryIndex, setCurrentStoryIndex] = useState<number>(0);
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
@@ -68,4 +68,4 @@ const StoryViewer: React.FC = () => {
   );
 };
 
-export default StoryViewer;
+export default App;

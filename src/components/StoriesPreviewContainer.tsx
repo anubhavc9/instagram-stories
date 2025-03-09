@@ -9,6 +9,10 @@ const StoriesPreviewContainer: React.FC<StoriesPreviewContainerProps> = ({
   const handleClick = (story: Story) => {
     toggleFullscreen();
     setCurrentStoryIndex(story.id);
+    const viewedStory = stories.find((s) => s.id === story.id);
+    if (viewedStory) {
+      story.isSeen = true;
+    }
   };
 
   return (
@@ -19,7 +23,11 @@ const StoriesPreviewContainer: React.FC<StoriesPreviewContainerProps> = ({
           className="story-item"
           onClick={() => handleClick(story)}
         >
-          <img src={story.img} alt={story.name} className="story-image" />
+          <img
+            src={story.img}
+            alt={story.name}
+            className={`story-image ${story.isSeen ? "seen" : ""}`}
+          />
           <span className="story-name">{story.name}</span>
         </div>
       ))}

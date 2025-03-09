@@ -30,13 +30,19 @@ const App: React.FC = () => {
   }, []);
 
   const goToNextStory = () => {
-    setCurrentStoryIndex((prevIndex) => (prevIndex + 1) % stories.length);
+    setCurrentStoryIndex((prevIndex) => {
+      const newIndex = (prevIndex + 1) % stories.length;
+      stories[newIndex].isSeen = true;
+      return newIndex;
+    });
   };
 
   const goToPreviousStory = () => {
-    setCurrentStoryIndex((prevIndex) =>
-      prevIndex === 0 ? stories.length - 1 : prevIndex - 1
-    );
+    setCurrentStoryIndex((prevIndex) => {
+      const newIndex = prevIndex === 0 ? stories.length - 1 : prevIndex - 1;
+      stories[newIndex].isSeen = true;
+      return newIndex;
+    });
   };
 
   const toggleFullscreen = () => setIsFullscreen(!isFullscreen);

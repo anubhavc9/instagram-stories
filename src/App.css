@@ -71,6 +71,10 @@
   padding: 2px;
 }
 
+.story-image.seen {
+  border: 3px solid lightgray;
+}
+
 .story-name {
   margin-top: 5px;
   font-size: 12px;

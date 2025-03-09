@@ -15,9 +15,14 @@ const StoriesPreviewContainer: React.FC<StoriesPreviewContainerProps> = ({
     }
   };
 
+  const sortedStories = [...stories].sort((a, b) => {
+    if (a.isSeen === b.isSeen) return 0;
+    return a.isSeen ? 1 : -1;
+  });
+
   return (
     <div className="story-container">
-      {stories.map((story) => (
+      {sortedStories.map((story) => (
         <div
           key={story.id}
           className="story-item"

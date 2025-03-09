@@ -70,7 +70,10 @@ const StoryFullscreen: React.FC<StoryFullscreenProps> = ({
         <img
           src="/assets/cross.svg"
           className="close-button"
-          onClick={toggleFullscreen}
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleFullscreen();
+          }}
         />
       </div>
 
